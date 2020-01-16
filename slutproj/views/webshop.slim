@@ -1,0 +1,41 @@
+- db = SQLite3::Database.new("database.db")
+nav.navshop
+    img src="img/shopperia.svg" alt="logo"/
+    .profile
+        .name = allinfo["name"]
+        - route = allinfo["avatar"]
+        - p allinfo
+        a.avatar href="/uploadtest" style="background: url('../#{route}');"
+            .text
+                p Change
+
+.createlisting
+    .listingbutton
+        a href="/createlisting" Create Listing!
+.fullshop
+    .categories
+        h1 Categories
+        - categories.each do |cate|
+            a href="/#{cate["categories"]}" = cate["categories"]
+    .listings
+        - listings.each do |list|
+            .listingbox
+                - bild = list["bild"]
+                .imagebox style="background: url('../#{bild}') no-repeat"
+                .rest
+                    .listtitle
+                        h2 = list["title"]
+                    .listdesc
+                        p = list["desc"]
+                    .category
+                        p Category: #{list["categories"]}
+                    .listsold
+                        span
+                            p Sold by:
+                            - avatar = db.execute("SELECT avatar FROM users WHERE user_id=?", list["user_id"])[0][0]
+                            .avatar style="background: url('../#{avatar}');"
+                            - name = db.execute("SELECT name FROM users WHERE user_id=?", list["user_id"])[0][0]
+                            .name = name
+                    .buy
+                        div
+                            p Buy now!

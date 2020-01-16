@@ -1,0 +1,23 @@
+nav.nav
+    img src="img/shopperia.svg" alt="logo"/
+
+.registerbox
+    .infobox
+        form class="registerform" action="/newaccount" method="post"
+            div class="form__group field"
+                input type="input" class="form__field" placeholder="Name" name="name" required="true"
+                label for="name" class="form__label" Name
+            div class="form__group field"
+                input type="input" class="form__field" placeholder="Email" name="email" required="true"
+                label for="email" class="form__label" Email
+            div class="form__group field"
+                input type="password" class="form__field" placeholder="Password" name="password" required="true"
+                label for="password" class="form__label" Password
+            div class="form__group field"
+                input type="password" class="form__field" placeholder="Confirm Password" name="passwordconf" required="true"
+                label for="password" class="form__label" Confirm Password
+            input type="submit" class="submitbtn" value="Register!"/
+        .already
+            p 
+                span Already have an account? 
+                a href="/login" Log in!

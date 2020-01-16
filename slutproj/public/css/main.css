@@ -1,0 +1,535 @@
+:root {
+    font-family: 'Open Sans', sans-serif;
+    --color-blue: #2bbcf3;
+    --darker-blue: #2b5ff3;
+    --text-slightblack: #231e21;
+    --text-gray: #706e70;
+}
+body {
+    margin: 0;
+    background: #f5f5f5;
+}
+
+nav.nav {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-bottom: 50px;
+}
+nav.nav img {
+    margin: 1rem;
+    width: 200px;
+}
+.all {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100%;
+    overflow: hidden;
+}
+.halfleft {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.halfright {
+    width: 90%;
+}
+.image {
+    background: url('../img/layout3x3.png') repeat-y;
+    width: 100%;
+    background-position: center;
+    background-size: 80%;
+    height: 250%;
+    transform: rotate(15deg) translateY(-105px);
+    animation: 80s linear infinite slowmove;
+    overflow: hidden;
+}
+.outerbox {
+    margin: 0 0 0 100px;
+}
+.innerbox {
+    margin-top: 50px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+}
+.titlebox {
+    display: flex;
+    align-items: center;
+    height: 150px;
+}
+.titlebox h1 {
+    margin: 0;
+    width: auto;
+    font-size: 52px;
+    color: var(--text-slightblack);
+}
+span.color {
+    color: var(--darker-blue);
+}
+.descbox {
+    margin: 2rem 0;
+}
+.descbox p {
+    font-size: 36px;
+    color: var(--text-gray);
+    line-height: 1.4;
+}
+.signinbox {
+    width: 75%;
+    height: 100px;
+    border-radius: 100px;
+    box-shadow: 0px -12px 12px 0 rgba(0, 0, 0, 0.05), 0px 12px 12px 0 rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease-in-out;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+.signinbox:hover {
+    box-shadow: 0px -12px 20px 0 rgba(0, 0, 0, 0.2), 0px 12px 20px 0 rgba(0, 0, 0, 0.2), 12px 0px 20px 0 rgba(0, 0, 0, 0.2), -12px 0px 20px 0 rgba(0, 0, 0, 0.2);
+}
+.signinbox h2 {
+    color: var(--darker-blue);
+    font-weight: 600;
+    font-size: 26px;
+}
+.signup p a {
+    text-decoration: none;
+    color: var(--darker-blue);
+    font-weight: 600;
+}
+@keyframes slowmove {
+    from {
+        background-position: 0 0;
+   }
+    to {
+        background-position: 0 -300%;
+   }
+}
+.registerbox,
+.loginbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+.infobox {
+    width: 30%;
+    background: white;
+    border-radius: 15px;
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px -12px 12px 0 rgba(0, 0, 0, 0.05), 0px 12px 12px 0 rgba(0, 0, 0, 0.05);
+}
+
+.infobox h1 {
+    width: 80%;
+    color: var(--text-slightblack);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.infobox a {
+    text-decoration: none;
+    color: var(--darker-blue);
+}
+
+.infobox a:hover {
+    color: #0b2f90;
+}
+
+form.registerform, form.loginform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+
+.form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin: 10px 0;
+    width: 85%;
+}
+.form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    outline: 0;
+    font-size: 1.3rem;
+    color: var(--text-slightblack);
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+.form__field::placeholder {
+    color: transparent;
+}
+.form__field:placeholder-shown ~ .form__label {
+    font-size: 1.3rem;
+    cursor: text;
+    top: 20px;
+}
+.form__label {
+    position: absolute;
+    top: -2px;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #9b9b9b;
+}
+.form__field:focus {
+    padding-bottom: 6px;
+    font-weight: 700;
+    border-width: 3px;
+    border-image: linear-gradient(to right, var(--darker-blue), var(--color-blue));
+    border-image-slice: 1;
+}
+.form__field:focus ~ .form__label {
+    position: absolute;
+    top: -2px;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: var(--darker-blue);
+    font-weight: 700;
+}
+.form__field:required, .form__field:invalid {
+    box-shadow: none;
+}
+
+/* google autocomplete blå till vit */
+input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  }
+
+input.submitbtn {
+    width: 40%;
+    margin: 2rem;
+    font-size: 20px;
+    border-radius: 200px;
+    background: white;
+    border: none;
+    color: var(--darker-blue);
+    font-weight: 600;
+    box-shadow: 0px -3px 3px 0 rgba(0, 0, 0, 0.1), 0px 3px 3px 0 rgba(0, 0, 0, 0.1);
+    padding: 0.2rem;
+    font-family: 'Open Sans', sans-serif;
+    transition: box-shadow 0.4s;
+}
+
+.submitbtn:hover {
+    box-shadow: 
+    0px -3px 6px 0 rgba(0, 0, 0, 0.2),
+    0px 3px 6px 0 rgba(0, 0, 0, 0.2), 
+    3px 0px 6px 0 rgba(0, 0, 0, 0.2), 
+    -3px 0px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.already {
+    margin: 1rem;
+}
+
+.already p a {
+    text-decoration: none;
+    color: var(--darker-blue);
+}
+
+.already p a:hover {
+    color: #0b2f90;
+}
+
+nav.navshop {
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+nav.navshop img {
+    margin: 1rem;
+    width: 200px;
+}
+
+.profile {
+    margin: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.avatar {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100px;
+    border: 1px #231e21 solid;
+    background-size: cover !important;
+    background-position: center !important;
+    text-decoration: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.text p {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+}
+
+.text:hover {
+    opacity: 1;
+}
+
+.name {
+    margin: 1rem;
+    color: var(--text-slightblack);
+    font-size: 20px;
+}
+
+.createlisting {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.listingbutton {
+    margin: 0 6rem;
+    background: royalblue;
+    border-radius: 100px;
+    padding: .5rem 1rem;
+    box-shadow: 
+    0px -6px 6px 0 rgba(0, 0, 0, .15),
+    0px 6px 6px 0 rgba(0, 0, 0, .15),
+    -6px 0px 6px 0 rgba(0, 0, 0, 0.15),
+    6px 0px 6px 0 rgba(0, 0, 0, 0.15);
+    transition: box-shadow .3s;
+}
+
+.listingbutton:hover {
+    box-shadow: 
+    0px -6px 6px 0 rgba(0, 0, 0, .3),
+    0px 6px 6px 0 rgba(0, 0, 0, .3),
+    -6px 0px 6px 0 rgba(0, 0, 0, 0.3),
+    6px 0px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.listingbutton a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.fullshop {
+    display: flex;
+    align-items: flex-start;
+    height: auto;
+}
+
+.categories {
+    flex: 1;
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    border-top-right-radius: 20px;
+    position: sticky;
+    top: 50px;
+}
+
+.categories h1 {
+    color: var(--text-slightblack);
+    margin: 2rem;
+}
+
+.categories a {
+    text-decoration: none;    
+    color: var(--darker-blue);
+    font-size: 24px;
+    margin: 1rem;
+}
+
+.imagebox {
+    width: 100%;
+    height: 250px;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+.listsold span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.listsold .avatar {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.5rem 1rem;
+}
+
+.listsold p {
+    margin: 1rem;
+    font-weight: 600;
+}
+
+.listsold .name {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.listings {
+    flex: 4;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.listingbox {
+    margin: 0 3rem 4rem 3rem;
+    background: white;
+    border-radius: 10px;
+    width: 25%;
+    max-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    overflow: hidden;
+    box-shadow: -12px -12px 12px 0 rgba(255, 255, 255, 1),
+    12px 12px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.listtitle {
+    color: var(--text-slightblack);
+    margin: 1rem;
+    font-weight: 600;
+}
+
+.listtitle h2 {
+    margin: 0;
+}
+
+.listdesc {
+    font-size: 1rem;
+    margin: 0.5rem 1rem;
+    color: var(--text-gray);
+    line-height: 1.4;
+}
+
+.listdesc p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.rest {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.category {
+    margin: 0 1rem;
+}
+
+.buy {
+    margin: 1rem;
+    height: 3rem;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buy p {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.buy div {
+    width: 60%;
+    height: 90%;
+    background: var(--darker-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1000px;
+    box-shadow: 
+    0px -6px 6px 0 rgba(0, 0, 0, .15),
+    0px 6px 6px 0 rgba(0, 0, 0, .15),
+    -6px 0px 6px 0 rgba(0, 0, 0, 0.15),
+    6px 0px 6px 0 rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s;
+}
+
+.buy div:hover {
+    box-shadow: 
+    0px -6px 6px 0 rgba(0, 0, 0, .3),
+    0px 6px 6px 0 rgba(0, 0, 0, .3),
+    -6px 0px 6px 0 rgba(0, 0, 0, 0.3),
+    6px 0px 6px 0 rgba(0, 0, 0, 0.3);
+}
+
+.createbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.ht {
+    height: 60vh;
+}
+
+textarea {
+    resize: none;
+    height: auto;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.listingform {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,16 @@
+nav.nav
+    img src="img/shopperia.svg" alt="logo"/
+.createbox
+    .infobox.ht
+        h1 Create listing!
+        form class="listingform" action="/createdlisting" method="post" enctype="multipart/form-data"
+            div class="form__group field"
+                input type="input" class="form__field" placeholder="Title" name="title" required="true"
+                label for="title" class="form__label" Title
+            textarea maxlength="150" name="desc" cols="25" rows="5" placeholder="Description" required="true"
+            select name="categoryselect"
+                option value="Category" required="true" Select Category 
+                - categories.each do |category|
+                    option value="#{category[0]}" = category[0]
+            input type="file" name="file"
+            input type="submit" class="submitbtn" value="Submit listing!"/
