@@ -4,6 +4,6 @@
 ## 2. Vyer (visa bildskisser på dina sidor)
 ## 3. Databas med ER-diagram (Bild)
 
-![ER-diagram](er-diagram.png)
+![ER-diagram](er-diagram.PNG)
 
 ## 4. Arkitektur (Beskriv filer och mappar - vad gör/inehåller de?)
