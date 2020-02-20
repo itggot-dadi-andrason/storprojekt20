@@ -28,7 +28,10 @@ nav.navshop
                     .listdesc
                         p = list["desc"]
                     .category
-                        p Category: #{list["categories"]}
+                        / - reltable.each do |rel|
+                        /     - if reltable["list_id"] = list["id"]
+                        /         - cat_id = reltable["category_id"]
+                        /         p Category: #{categories["category"][cat_id]}
                     .listsold
                         span
                             p Sold by:

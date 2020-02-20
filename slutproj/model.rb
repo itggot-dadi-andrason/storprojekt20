@@ -1,0 +1,56 @@
+db = SQLite3::Database.new("database.db")
+db.results_as_hash = true
+
+def db()
+    fat = SQLite3::Database.new("database.db")    
+    fat.results_as_hash = true
+    return fat
+end
+
+def userexist(email)
+    return db.execute("SELECT user_id FROM users WHERE email=?", email)
+end
+
+def createuser(email, password, name, avatar)
+    password_digest = BCrypt::Password.create(password)
+    db.execute("INSERT INTO users(email, password, name, avatar) VALUES (?,?,?,?)", [email, password_digest, name, avatar])
+end
+
+def login(email, password)
+    password_digest = db.execute("SELECT password FROM users WHERE email=?", email)
+    if BCrypt::Password.new(password_digest[0][0]) == password
+        session[:email] = email
+        session[:user_id] = db.execute("SELECT user_id FROM users WHERE email=?", email)[0][0]
+        return true
+    end
+end
+
+def changeavatar(slimroute)
+    db.execute("UPDATE users SET avatar=? WHERE user_id=#{session[:user_id]}", slimroute)
+end
+
+def getinfo()
+    info = []
+    info << db.execute("SELECT * FROM users WHERE user_id=?", session[:user_id])[0]
+    info << db.execute("SELECT * FROM listings")
+    info << db.execute("SELECT category FROM categories")
+    info << db.execute("SELECT * FROM listing_cate_rel")
+    return info
+end
+
+def showcat()
+    return db.execute("SELECT category FROM categories")
+end
+
+
+#FIX DIS
+def listcreate()
+    db.execute("INSERT INTO listings(title, desc, bild,  user_id) VALUES (?,?,?,?)", [title, desc, bild, session[:user_id]])
+    db.execute("SELECT category FROM categories").each do |currentcategory|
+        if currentcategory = category
+            db.execute("INSERT INTO categories(category) VALUES (?)", category)
+        else
+            redirect("/")
+        end
+    end
+end

@@ -2,9 +2,9 @@ require 'slim'
 require 'sinatra'
 require 'sqlite3'
 require 'bcrypt'
+require_relative 'model.rb'
 
 enable :sessions
-
 db = SQLite3::Database.new("database.db")
 db.results_as_hash = true
 
@@ -25,13 +25,11 @@ post('/newaccount') do
     if confirm != password
         redirect('/wrongmatch')
     end
-    result = db.execute("SELECT user_id FROM users WHERE email=?", email)
+    result = userexist(email)
     if result.empty? == false
         redirect('/wrong')
     end
-    password_digest = BCrypt::Password.create(password)
-    p password_digest
-    db.execute("INSERT INTO users(email, password, name, avatar) VALUES (?,?,?,?)", [email, password_digest, name, avatar])
+    createuser(email, password, name, avatar)
     redirect('/register')
 end
 
@@ -50,14 +48,11 @@ end
 post('/loginacc') do
     email = params[:email]
     password = params[:password]
-    if db.execute("SELECT user_id FROM users WHERE email=?", email).empty?
+    if userexist(email).empty?
         redirect('/wrongpw')
     end
-    password_digest = db.execute("SELECT password FROM users WHERE email=?", email)
-    if BCrypt::Password.new(password_digest[0][0]) == password
-        session[:email] = email
-        session[:user_id] = db.execute("SELECT user_id FROM users WHERE email=?", email).first["user_id"].to_i
-        p session[:user_id]
+    val = login(email, password)
+    if val
         redirect('/webshop')
     else
         redirect('/wrongpw')
@@ -94,30 +89,17 @@ def fileupload(filename)
 end
 
 post('/upload') do
-    # unless params[:file] &&
-    #        (tempfile = params[:file][:tempfile]) &&
-    #        (name = params[:file][:filename])
-    #   @error = "No file selected"
-    #   return slim(:upload)
-    # end
-    # puts "Uploading file, original name #{name.inspect}"
-    # target = "public/img/#{name}"
-    # slimroute = "img/#{name}"
     files = fileupload(params[:file])
-    p files
     target = files[:target]
-    p target
     tempfile = files[:tempfile]
-    p params[:file][:tempfile]
     slimroute = files[:slimroute]
-    db.execute("UPDATE users SET avatar=? WHERE user_id=#{session[:user_id]}", slimroute)
     File.open(target, 'wb') {|f| f.write tempfile.read }
     filesize = File.size(target)
     if File.size(target) > 2000000
         File.delete(target)
         redirect('/filebig')
     end
-    p filesize
+    changeavatar(slimroute)
     redirect('/webshop')
 end
 
@@ -126,14 +108,13 @@ get('/filebig') do
 end
 
 get('/webshop') do
-    allinfo = db.execute("SELECT * FROM users WHERE user_id=?", session[:user_id])[0]
-    listings = db.execute("SELECT * FROM listings")
-    categories = db.execute("SELECT DISTINCT categories FROM listings")
-    slim(:webshop, locals: {allinfo: allinfo, listings: listings, categories:categories})
+    info = getinfo()
+    p info
+    slim(:webshop, locals: {allinfo: info[0], listings: info[1], categories: info[2]}, reltable: info[3])
 end
 
 get('/createlisting') do
-    categories = db.execute("SELECT DISTINCT categories FROM listings")
+    categories = showcat()
     slim(:createlisting, locals: {categories:categories})
 end
 
@@ -151,6 +132,6 @@ post('/createdlisting') do
     target = "public/img/#{name}"
     bild = "img/#{name}"
     File.open(target, 'wb') {|f| f.write tempfile.read }
-    db.execute("INSERT INTO listings(title, desc, bild, categories, user_id) VALUES (?,?,?,?,?)", [title, desc, bild, category, session[:user_id]])
+    listcreate()
     redirect('/webshop')
 end
