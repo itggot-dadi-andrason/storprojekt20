@@ -2,6 +2,7 @@ require 'slim'
 require 'sinatra'
 require 'sqlite3'
 require 'bcrypt'
+require 'byebug'
 require_relative 'model.rb'
 
 enable :sessions
@@ -30,7 +31,7 @@ post('/newaccount') do
         redirect('/wrong')
     end
     createuser(email, password, name, avatar)
-    redirect('/register')
+    redirect('/login')
 end
 
 get('/wrongmatch') do
@@ -109,8 +110,7 @@ end
 
 get('/webshop') do
     info = getinfo()
-    p info
-    slim(:webshop, locals: {allinfo: info[0], listings: info[1], categories: info[2]}, reltable: info[3])
+    slim(:webshop, locals: {allinfo: info[0], listings: info[1], categories: info[2], relationtable: info[3], catarr: info[4]})
 end
 
 get('/createlisting') do
@@ -132,6 +132,9 @@ post('/createdlisting') do
     target = "public/img/#{name}"
     bild = "img/#{name}"
     File.open(target, 'wb') {|f| f.write tempfile.read }
-    listcreate()
+    listcreate(title, desc, bild, category)
     redirect('/webshop')
+end
+get('/bad') do
+    slim(:bad)
 end

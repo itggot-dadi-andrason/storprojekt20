@@ -16,7 +16,7 @@ nav.navshop
     .categories
         h1 Categories
         - categories.each do |cate|
-            a href="/#{cate["categories"]}" = cate["categories"]
+            a href="/#{cate["category"]}" = cate["category"]
     .listings
         - listings.each do |list|
             .listingbox
@@ -28,10 +28,11 @@ nav.navshop
                     .listdesc
                         p = list["desc"]
                     .category
-                        / - reltable.each do |rel|
-                        /     - if reltable["list_id"] = list["id"]
-                        /         - cat_id = reltable["category_id"]
-                        /         p Category: #{categories["category"][cat_id]}
+                        - relationtable.each do |relation|
+                            - if relation["listing_id"] == list["list_id"]
+                                - cat_id = relation["category_id"]
+                                    p Category: #{catarr[cat_id-1]}
+                        
                     .listsold
                         span
                             p Sold by:

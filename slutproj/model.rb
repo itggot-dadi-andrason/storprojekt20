@@ -35,6 +35,12 @@ def getinfo()
     info << db.execute("SELECT * FROM listings")
     info << db.execute("SELECT category FROM categories")
     info << db.execute("SELECT * FROM listing_cate_rel")
+    categories = db.execute("SELECT category FROM categories")
+    arr = []
+    categories.each do |category|
+        arr << category["category"]
+    end
+    info << arr
     return info
 end
 
@@ -44,13 +50,15 @@ end
 
 
 #FIX DIS
-def listcreate()
-    db.execute("INSERT INTO listings(title, desc, bild,  user_id) VALUES (?,?,?,?)", [title, desc, bild, session[:user_id]])
-    db.execute("SELECT category FROM categories").each do |currentcategory|
-        if currentcategory = category
-            db.execute("INSERT INTO categories(category) VALUES (?)", category)
-        else
-            redirect("/")
-        end
+def listcreate(title, desc, bild, category)
+    categories = db.execute("SELECT category FROM categories")
+    arr = []
+    categories.each do |category|
+        arr << category["category"]
     end
+    if !arr.include?(category)
+        p "bad"
+        redirect("/bad")
+    end
+    db.execute("INSERT INTO listings(title, desc, bild, user_id) VALUES (?,?,?,?)", [title, desc, bild, session[:user_id]])
 end
