@@ -51,9 +51,11 @@ end
 
 #FIX DIS
 def listcreate(title, desc, bild, category)
-    categories = db.execute("SELECT category FROM categories")
+    categories = db.execute("SELECT category, id FROM categories")
     arr = []
+    print categories
     categories.each do |category|
+        p category
         arr << category["category"]
     end
     if !arr.include?(category)
@@ -61,4 +63,5 @@ def listcreate(title, desc, bild, category)
         redirect("/bad")
     end
     db.execute("INSERT INTO listings(title, desc, bild, user_id) VALUES (?,?,?,?)", [title, desc, bild, session[:user_id]])
+    db.execute("INSERT INTO listing_cate_rel(listing_id, category_id) VALUES (?,?)", [db.execute("SELECT list_id FROM listings ORDER BY list_id DESC LIMIT 1")[0]["list_id"], db.execute("SELECT id FROM categories WHERE category=?", category)[0]["id"]])
 end
