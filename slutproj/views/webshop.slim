@@ -31,8 +31,7 @@ nav.navshop
                         - relationtable.each do |relation|
                             - if relation["listing_id"] == list["list_id"]
                                 - cat_id = relation["category_id"]
-                                    p Category: #{catarr[cat_id-1]}
-                        
+                                p Category: #{catarr[cat_id-1]}
                     .listsold
                         span
                             p Sold by:
