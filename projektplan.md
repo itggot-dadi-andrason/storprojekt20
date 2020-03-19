@@ -7,3 +7,10 @@
 ![ER-diagram](er-diagram.PNG)
 
 ## 4. Arkitektur (Beskriv filer och mappar - vad gör/inehåller de?)
+└───slutproj
+    ├───db
+    ├───public
+    │   ├───css
+    │   ├───img
+    │   └───js
+    └───views
