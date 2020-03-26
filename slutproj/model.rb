@@ -13,7 +13,8 @@ end
 
 def createuser(email, password, name, avatar)
     password_digest = BCrypt::Password.create(password)
-    db.execute("INSERT INTO users(email, password, name, avatar) VALUES (?,?,?,?)", [email, password_digest, name, avatar])
+    admin = "0"
+    db.execute("INSERT INTO users(email, password, name, avatar, admin) VALUES (?,?,?,?,?)", [email, password_digest, name, avatar, admin])
 end
 
 def login(email, password)
@@ -49,7 +50,6 @@ def showcat()
 end
 
 
-#FIX DIS
 def listcreate(title, desc, bild, category)
     categories = db.execute("SELECT category, id FROM categories")
     arr = []
@@ -59,9 +59,28 @@ def listcreate(title, desc, bild, category)
         arr << category["category"]
     end
     if !arr.include?(category)
-        p "bad"
-        redirect("/bad")
+        return false
     end
     db.execute("INSERT INTO listings(title, desc, bild, user_id) VALUES (?,?,?,?)", [title, desc, bild, session[:user_id]])
     db.execute("INSERT INTO listing_cate_rel(listing_id, category_id) VALUES (?,?)", [db.execute("SELECT list_id FROM listings ORDER BY list_id DESC LIMIT 1")[0]["list_id"], db.execute("SELECT id FROM categories WHERE category=?", category)[0]["id"]])
+end
+
+def fileupload(filename)
+    unless filename &&
+        (tempfile = filename[:tempfile]) &&
+        (name = filename[:filename])
+    @error = "No file selected"
+    return false
+    end
+    p filename
+    fileextension = filename["filename"]
+    if File.extname("#{fileextension}") == ".png" or File.extname("#{fileextension}") == ".jpg" or File.extname("#{fileextension}") == ".jpeg" or File.extname("#{fileextension}") == ".gif"
+        puts "Uploading file, original name #{name.inspect}"
+        target = "public/img/#{name}"
+        slimroute = "img/#{name}"
+        files = {target: target, slimroute: slimroute, tempfile: tempfile}
+        return files
+    else
+        return false
+    end
 end

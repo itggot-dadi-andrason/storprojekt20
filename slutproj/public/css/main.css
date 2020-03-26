@@ -508,6 +508,10 @@ nav.navshop img {
     6px 0px 6px 0 rgba(0, 0, 0, 0.3);
 }
 
+.del {
+    color: red;
+}
+
 .createbox {
     display: flex;
     justify-content: center;

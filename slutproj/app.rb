@@ -3,6 +3,7 @@ require 'sinatra'
 require 'sqlite3'
 require 'bcrypt'
 require 'byebug'
+require 'capybara'
 require_relative 'model.rb'
 
 enable :sessions
@@ -24,18 +25,22 @@ post('/newaccount') do
     name = params[:name]
     avatar = "img/default.png"
     if confirm != password
-        redirect('/wrongmatch')
+        session[:route] = "/register"
+        session[:error] = "Passwords don't match."
+        redirect('/error')
     end
     result = userexist(email)
     if result.empty? == false
-        redirect('/wrong')
+        session[:error] = "Account does not exist."
+        session[:route] = "/register"
+        redirect('/error')
     end
     createuser(email, password, name, avatar)
     redirect('/login')
 end
 
-get('/wrongmatch') do
-    slim(:wrongmatch)
+get('/error') do
+    slim(:error)
 end
 
 get('/wrong') do
@@ -50,47 +55,31 @@ post('/loginacc') do
     email = params[:email]
     password = params[:password]
     if userexist(email).empty?
-        redirect('/wrongpw')
+        session[:error] = "That account does not exist."
+        session[:route] = "/login"
+        redirect('/error')
     end
     val = login(email, password)
     if val
         redirect('/webshop')
     else
-        redirect('/wrongpw')
+        session[:error] = "The password/email is wrong."
+        session[:route] = "/login"
+        redirect('/error')
     end 
 end
-
-get('/wrongpw') do
-    slim(:wrongpw)
-end
-
 
 get('/uploadtest') do
     slim(:upload)
 end
 
-def fileupload(filename)
-    unless filename &&
-        (tempfile = filename[:tempfile]) &&
-        (name = filename[:filename])
-    @error = "No file selected"
-    return slim(:upload)
-    end
-    p filename
-    fileextension = filename["filename"]
-    if File.extname("#{fileextension}") == ".png" or File.extname("#{fileextension}") == ".jpg" or File.extname("#{fileextension}") == ".jpeg" or File.extname("#{fileextension}") == ".gif"
-        puts "Uploading file, original name #{name.inspect}"
-        target = "public/img/#{name}"
-        slimroute = "img/#{name}"
-        files = {target: target, slimroute: slimroute, tempfile: tempfile}
-        return files
-    else
-        redirect('/wrongext')
-    end
-end
-
 post('/upload') do
     files = fileupload(params[:file])
+    if files == false
+        session[:error] = "You used the wrong file extension. Only .png, .jpg and .gif are allowed."
+        session[:route] = "/uploadtest"
+        redirect("/error")
+    end
     target = files[:target]
     tempfile = files[:tempfile]
     slimroute = files[:slimroute]
@@ -98,7 +87,9 @@ post('/upload') do
     filesize = File.size(target)
     if File.size(target) > 2000000
         File.delete(target)
-        redirect('/filebig')
+        session[:error] = "File is too big. Max 2MB."
+        session[:route] = "/uploadtest"
+        redirect('/error')
     end
     changeavatar(slimroute)
     redirect('/webshop')
@@ -132,11 +123,13 @@ post('/createdlisting') do
     target = "public/img/#{name}"
     bild = "img/#{name}"
     File.open(target, 'wb') {|f| f.write tempfile.read }
-    listcreate(title, desc, bild, category)
+    mes = listcreate(title, desc, bild, category)
+    if mes == false
+        session[:error] = "Wrong category, choose another."
+        session[:route] = "/createlisting"
+        redirect("/error")
+    end
     redirect('/webshop')
 end
 
 
-get('/bad') do
-    slim(:bad)
-end

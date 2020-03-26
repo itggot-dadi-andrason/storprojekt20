@@ -42,3 +42,11 @@ nav.navshop
                     .buy
                         div
                             p Buy now!
+                    - if allinfo["admin"] == "1" or allinfo["user_id"] == list["user_id"]
+                        .del
+                            a href="/webshop/:list_id/delete" Delete post!
+                    - if allinfo["user_id"] == list["user_id"]
+                        .upd
+                            a href="/webshop/:list_id/update"
+
+                            
