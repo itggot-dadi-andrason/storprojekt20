@@ -44,9 +44,12 @@ nav.navshop
                             p Buy now!
                     - if allinfo["admin"] == "1" or allinfo["user_id"] == list["user_id"]
                         .del
-                            a href="/webshop/:list_id/delete" Delete post!
+                            form action="/webshop/#{list["list_id"]}/delete" method="post"
+                                input type="submit" value="DELETE LISTING!"
+                                
                     - if allinfo["user_id"] == list["user_id"]
                         .upd
-                            a href="/webshop/:list_id/update"
+                            form action="/webshop/#{list["list_id"]}/update" method="get"
+                                input type="submit" value="Update listing!"/
 
                             

@@ -84,3 +84,32 @@ def fileupload(filename)
         return false
     end
 end
+
+def user_info(user_id, list_id)
+    return [db.execute("SELECT * FROM users WHERE user_id=?", user_id), db.execute("SELECT * FROM listings WHERE list_id=?", list_id)]
+end
+
+def deletepost(post_id)
+    db.execute("DELETE FROM listings WHERE list_id=?", post_id)
+end
+
+def updatelisting(post_id, title, desc, category, bild)
+    categories = db.execute("SELECT category, id FROM categories")
+    arr = []
+    print categories
+    categories.each do |category|
+        p category
+        arr << category["category"]
+    end
+    if !arr.include?(category)
+        return false
+    end
+    p title
+    p desc
+    p category
+    p bild
+    p post_id
+    db.execute("UPDATE listings SET title=?, desc=?, bild=? WHERE list_id=?", title, desc, bild, post_id)
+
+    db.execute("UPDATE listing_cate_rel SET category_id=? WHERE listing_id=?", db.execute("SELECT id FROM categories WHERE category=?", category)[0]["id"], post_id)
+end
