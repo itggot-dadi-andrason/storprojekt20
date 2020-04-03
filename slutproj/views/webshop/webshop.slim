@@ -5,9 +5,13 @@ nav.navshop
         .name = allinfo["name"]
         - route = allinfo["avatar"]
         - p allinfo
-        a.avatar href="/uploadtest" style="background: url('../#{route}');"
+        a.avatar href="/upload" style="background: url('../#{route}');"
             .text
                 p Change
+        a.profile href="/profile" Profile!
+        form action="/logout" method="post"
+            input type="submit" value="Logout!"/
+            
 
 .createlisting
     .listingbutton

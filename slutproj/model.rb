@@ -26,13 +26,13 @@ def login(email, password)
     end
 end
 
-def changeavatar(slimroute)
-    db.execute("UPDATE users SET avatar=? WHERE user_id=#{session[:user_id]}", slimroute)
+def changeavatar(user_id, slimroute)
+    db.execute("UPDATE users SET avatar=? WHERE user_id=?", slimroute, user_id)
 end
 
-def getinfo()
+def getinfo(user_id)
     info = []
-    info << db.execute("SELECT * FROM users WHERE user_id=?", session[:user_id])[0]
+    info << db.execute("SELECT * FROM users WHERE user_id=?", user_id)[0]
     info << db.execute("SELECT * FROM listings")
     info << db.execute("SELECT category FROM categories")
     info << db.execute("SELECT * FROM listing_cate_rel")
@@ -50,7 +50,7 @@ def showcat()
 end
 
 
-def listcreate(title, desc, bild, category)
+def listcreate(title, desc, bild, category, user_id)
     categories = db.execute("SELECT category, id FROM categories")
     arr = []
     print categories
@@ -61,7 +61,7 @@ def listcreate(title, desc, bild, category)
     if !arr.include?(category)
         return false
     end
-    db.execute("INSERT INTO listings(title, desc, bild, user_id) VALUES (?,?,?,?)", [title, desc, bild, session[:user_id]])
+    db.execute("INSERT INTO listings(title, desc, bild, user_id) VALUES (?,?,?,?)", [title, desc, bild, user_id])
     db.execute("INSERT INTO listing_cate_rel(listing_id, category_id) VALUES (?,?)", [db.execute("SELECT list_id FROM listings ORDER BY list_id DESC LIMIT 1")[0]["list_id"], db.execute("SELECT id FROM categories WHERE category=?", category)[0]["id"]])
 end
 
@@ -110,6 +110,26 @@ def updatelisting(post_id, title, desc, category, bild)
     p bild
     p post_id
     db.execute("UPDATE listings SET title=?, desc=?, bild=? WHERE list_id=?", title, desc, bild, post_id)
-
     db.execute("UPDATE listing_cate_rel SET category_id=? WHERE listing_id=?", db.execute("SELECT id FROM categories WHERE category=?", category)[0]["id"], post_id)
+end
+
+def profileinfo(user_id)
+    categories = db.execute("SELECT category FROM categories")
+    arr = []
+    categories.each do |category|
+        arr << category["category"]
+    end
+    return [db.execute("SELECT * FROM users WHERE user_id=?", user_id), db.execute("SELECT * FROM listings WHERE user_id=?", user_id), db.execute("SELECT * FROM listing_cate_rel"), arr]
+end
+
+def admin(user_id)
+    return [db.execute("SELECT * FROM users WHERE user_id=?", user_id), db.execute("SELECT * FROM users")]
+end
+
+def userinfodelete(user_id, del_id)
+    return [db.execute("SELECT * FROM users WHERE user_id=?", user_id), db.execute("SELECT * FROM users WHERE user_id=?", del_id)]
+end
+
+def deleteuser(del_id)
+    db.execute("DELETE FROM users WHERE user_id=?", del_id)
 end

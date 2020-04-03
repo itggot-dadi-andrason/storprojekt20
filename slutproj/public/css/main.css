@@ -538,3 +538,37 @@ textarea {
     width: 100%;
     height: 100%;
 }
+
+.profilebox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    margin: 3rem auto;
+}
+
+.userlistings .listingbox {
+    width: 300px;
+}
+
+.userlistings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profilebox .avatar {
+    width: 30%;
+    height: 150px;
+    margin: 1rem;
+}
+
+.userlistings .rest {
+    margin: 1rem 0;
+}
+
+.profilebox .text p {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    font-size: 2.7rem;
+}

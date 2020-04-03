@@ -1,0 +1,35 @@
+.profilebox
+    - route = profileinfo[0][0]["avatar"]
+    a.avatar href="/upload" style="background: url('../#{route}');"
+        .text
+            p Change
+    .user
+        h1 User: #{profileinfo[0][0]["name"]}
+    - if profileinfo[0][0]["admin"] == "1"
+        .admin
+            a.adminsettings href="/adminsettings" Admin settings
+    .userlistings
+        h1 Your listings
+        - profileinfo[1].each do |list|
+            .listingbox
+                - bild = list["bild"]
+                .imagebox style="background: url('../#{bild}') no-repeat"
+                .rest
+                    .listtitle
+                        h2 = list["title"]
+                    .listdesc
+                        p = list["desc"]
+                    .category
+                        - profileinfo[2].each do |relation|
+                            - if relation["listing_id"] == list["list_id"]
+                                - cat_id = relation["category_id"]
+                                p Category: #{profileinfo[3][cat_id-1]}
+                    .del
+                        form action="/webshop/#{list["list_id"]}/delete" method="post"
+                            input type="submit" value="DELETE LISTING!"
+                    .upd
+                        form action="/webshop/#{list["list_id"]}/update" method="get"
+                            input type="submit" value="Update listing!"/
+        .webshop
+            a href="/webshop" Go back to shop
+
