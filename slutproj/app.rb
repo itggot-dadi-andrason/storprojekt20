@@ -6,18 +6,32 @@ require 'byebug'
 require 'capybara'
 require_relative 'model.rb'
 
+include Model
 enable :sessions
 db = SQLite3::Database.new("database.db")
 db.results_as_hash = true
 
+# Display Landing Page
+# 
 get('/') do
     slim(:index)
 end
 
+# Displays Register Page
+# 
 get('/register') do
     slim(:"users/register")
 end
 
+# Creates a new account and redirects to '/login'
+# 
+# @param [String] email, users email 
+# @param [String] password, users password
+# @param [String] confirm, users password confirmation
+# @param [String] name, users name
+# 
+# @see Model#userexist
+# @see Model#createuser
 post('/newaccount') do
     email = params[:email]
     password = params[:password]
@@ -39,15 +53,25 @@ post('/newaccount') do
     redirect('/login')
 end
 
+# Shows error messages. Uses session to show them.
+# 
 get('/error') do
     slim(:error)
 end
 
-
+# Shows the login page
+# 
 get('/login') do
     slim(:"users/login")
 end
 
+# Logs in an account and redirects to '/webshop'
+# 
+# @param [String] email, users email 
+# @param [String] password, users password 
+# 
+# @see Model#userexist
+# @see Model#login
 post('/loginacc') do
     email = params[:email]
     password = params[:password]
@@ -66,10 +90,18 @@ post('/loginacc') do
     end 
 end
 
+# Shows the upload page for avatars
+# 
 get('/upload') do
     slim(:"webshop/upload")
 end
 
+# Uploads the file and replaces avatar for user and redirects to '/profile'
+# 
+# @param [String] file, name of file uploaded
+# 
+# @see Model#fileupload
+# @see Model#changeavatar
 post('/uploaded') do
     files = fileupload(params[:file])
     if files == false
@@ -93,7 +125,9 @@ post('/uploaded') do
     redirect('/profile')
 end
 
-
+# Shows the entire webshop
+#  
+# @see Model#info
 get('/webshop') do
     info = getinfo(session[:user_id])
     if session[:user_id] != nil
@@ -105,11 +139,21 @@ get('/webshop') do
     end
 end
 
+# Shows the listing creation page
+# 
+# @see Model#showcat
 get('/createlisting') do
     categories = showcat()
     slim(:"webshop/createlisting", locals: {categories:categories})
 end
 
+# Creates a new listing and redirects to '/webshop'
+# 
+# @param [String] title, listing title 
+# @param [String] desc, description of listing 
+# @param [String] categoryselect, which category was chosen for listing 
+# 
+# @see Model#listcreate
 post('/createdlisting') do
     title = params[:title]
     desc = params[:desc]
@@ -133,6 +177,12 @@ post('/createdlisting') do
     redirect('/webshop')
 end
 
+# Deletes a listing by user or admin and redirects to '/webshop'
+# 
+# @param [String] list_id, id of listing  
+# 
+# @see Model#user_info
+# @see Model#deletepost
 post("/webshop/:list_id/delete") do
     post_id = params[:list_id]
     list_user_info = user_info(session[:user_id], post_id)
@@ -146,6 +196,12 @@ post("/webshop/:list_id/delete") do
     redirect("/webshop")
 end
 
+# Shows the page where user can update their listing
+# 
+# @param [String] post_id, id of listing 
+# 
+# @see Model#user_info
+# @see Model#showcat
 get("/webshop/:list_id/update") do
     post_id = params[:list_id]
     list_user_info = user_info(session[:user_id], post_id)
@@ -159,6 +215,15 @@ get("/webshop/:list_id/update") do
     end
 end
 
+# Updates the listing chosen and redirects '/webshop'
+# 
+# @param [String] post_id, id of listing 
+# @param [String] title, listing title 
+# @param [String] desc, description of listing 
+# @param [String] categoryselect, which category was chosen for listing 
+# @param [String] file, name of file uploaded
+# 
+# @see Model#updatelisting
 post("/webshop/:list_id/updatedlisting") do
     post_id = params[:list_id]
     title = params[:title]
@@ -183,6 +248,9 @@ post("/webshop/:list_id/updatedlisting") do
     redirect("/webshop")
 end
 
+# Shows the profile of logged in user
+# 
+# @see Model#profileinfo
 get("/profile") do
     if session[:user_id] != nil
         profileinfo = profileinfo(session[:user_id])
@@ -194,6 +262,9 @@ get("/profile") do
     end
 end
 
+# Shows admin settings
+# 
+# @see Model#admin
 get("/adminsettings") do
     users = admin(session[:user_id])
     if session[:user_id] != nil
@@ -211,6 +282,12 @@ get("/adminsettings") do
     end
 end
 
+# Deletes a user by an admin
+# 
+# @param [String] id, id of user deleted
+# 
+# @see Model#user_info
+# @see Model#deleteuser
 post("/users/:id/deleteuser") do
     del_id = params[:id]
     user_info = userinfodelete(session[:user_id], del_id)
@@ -230,6 +307,8 @@ post("/users/:id/deleteuser") do
     end
 end
 
+# Logs out existing user
+# 
 post("/logout") do
     session.clear
     redirect("/login")
