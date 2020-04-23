@@ -39,9 +39,9 @@ nav.navshop
                     .listsold
                         span
                             p Sold by:
-                            - avatar = db.execute("SELECT avatar FROM users WHERE user_id=?", list["user_id"])[0][0]
+                            - avatar = list["avatar"]
                             .avatar style="background: url('../#{avatar}');"
-                            - name = db.execute("SELECT name FROM users WHERE user_id=?", list["user_id"])[0][0]
+                            - name = list["name"]
                             .name = name
                     .buy
                         div

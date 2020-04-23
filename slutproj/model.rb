@@ -70,7 +70,7 @@ end
 def getinfo(user_id)
     info = []
     info << db.execute("SELECT * FROM users WHERE user_id=?", user_id)[0]
-    info << db.execute("SELECT * FROM listings")
+    info << db.execute("SELECT name, avatar, listings.* FROM users INNER JOIN listings ON users.user_id = listings.user_id")
     info << db.execute("SELECT category FROM categories")
     info << db.execute("SELECT * FROM listing_cate_rel")
     categories = db.execute("SELECT category FROM categories")
