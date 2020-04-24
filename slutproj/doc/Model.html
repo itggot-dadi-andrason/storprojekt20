@@ -529,7 +529,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -538,7 +538,7 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains user_id</p>
 </div>
       
     </li>
@@ -610,7 +610,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -619,14 +619,14 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains id of user</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>slimroute,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -635,7 +635,7 @@
       
         &mdash;
         <div class='inline'>
-<p>route to file</p>
+<p>contains route to file</p>
 </div>
       
     </li>
@@ -702,7 +702,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>email,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -711,14 +711,14 @@
       
         &mdash;
         <div class='inline'>
-<p>email</p>
+<p>contains email</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>password,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -727,14 +727,14 @@
       
         &mdash;
         <div class='inline'>
-<p>hashed password</p>
+<p>contains hashed password</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>name,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -743,14 +743,14 @@
       
         &mdash;
         <div class='inline'>
-<p>name</p>
+<p>contains name</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>avatar,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -759,7 +759,7 @@
       
         &mdash;
         <div class='inline'>
-<p>avatar</p>
+<p>contains avatar</p>
 </div>
       
     </li>
@@ -895,7 +895,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>post_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -904,7 +904,7 @@
       
         &mdash;
         <div class='inline'>
-<p>post_id</p>
+<p>contains post_id</p>
 </div>
       
     </li>
@@ -971,7 +971,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>del_id,contains</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -980,7 +980,7 @@
       
         &mdash;
         <div class='inline'>
-<p>del_id</p>
+<p>id of user deletion</p>
 </div>
       
     </li>
@@ -1049,7 +1049,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>filename,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1058,7 +1058,7 @@
       
         &mdash;
         <div class='inline'>
-<p>File name</p>
+<p>contains File name</p>
 </div>
       
     </li>
@@ -1162,7 +1162,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1171,7 +1171,7 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains id of user</p>
 </div>
       
     </li>
@@ -1226,7 +1226,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_getinfo'>getinfo</span><span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
     <span class='id identifier rubyid_info'>info</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="Model#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM users WHERE user_id=?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_info'>info</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="Model#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM listings</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="Model#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT name, avatar, listings.* FROM users INNER JOIN listings ON users.user_id = listings.user_id</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='id identifier rubyid_info'>info</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="Model#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT category FROM categories</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='id identifier rubyid_info'>info</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="Model#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT * FROM listing_cate_rel</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='id identifier rubyid_categories'>categories</span> <span class='op'>=</span> <span class='id identifier rubyid_db'><span class='object_link'><a href="#db-instance_method" title="Model#db (method)">db</a></span></span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT category FROM categories</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1265,7 +1265,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>title,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1274,14 +1274,14 @@
       
         &mdash;
         <div class='inline'>
-<p>title</p>
+<p>contains title</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>desc,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1290,14 +1290,14 @@
       
         &mdash;
         <div class='inline'>
-<p>description</p>
+<p>contains description</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>bild,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1306,14 +1306,14 @@
       
         &mdash;
         <div class='inline'>
-<p>imagepath</p>
+<p>contains imagepath</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>category,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1322,14 +1322,14 @@
       
         &mdash;
         <div class='inline'>
-<p>category</p>
+<p>contains category</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1338,7 +1338,7 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains user_id</p>
 </div>
       
     </li>
@@ -1432,7 +1432,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>email,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1441,14 +1441,14 @@
       
         &mdash;
         <div class='inline'>
-<p>email</p>
+<p>contains email</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>password,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1457,7 +1457,7 @@
       
         &mdash;
         <div class='inline'>
-<p>password</p>
+<p>contains password</p>
 </div>
       
     </li>
@@ -1539,7 +1539,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1548,7 +1548,7 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains user_id</p>
 </div>
       
     </li>
@@ -1691,7 +1691,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>post_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1700,14 +1700,14 @@
       
         &mdash;
         <div class='inline'>
-<p>post_id</p>
+<p>contains id of listing</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>title,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1716,14 +1716,14 @@
       
         &mdash;
         <div class='inline'>
-<p>title</p>
+<p>contains title</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>desc,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1732,14 +1732,14 @@
       
         &mdash;
         <div class='inline'>
-<p>description</p>
+<p>contains description</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>category,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1748,14 +1748,14 @@
       
         &mdash;
         <div class='inline'>
-<p>category</p>
+<p>contains category</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>bild,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1764,7 +1764,7 @@
       
         &mdash;
         <div class='inline'>
-<p>imagepath</p>
+<p>contains imagepath</p>
 </div>
       
     </li>
@@ -1868,7 +1868,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1877,14 +1877,14 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains user_id</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>list_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1893,7 +1893,7 @@
       
         &mdash;
         <div class='inline'>
-<p>list_id</p>
+<p>contains list_id</p>
 </div>
       
     </li>
@@ -1965,7 +1965,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>email,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1974,7 +1974,7 @@
       
         &mdash;
         <div class='inline'>
-<p>email information</p>
+<p>contains email information</p>
 </div>
       
     </li>
@@ -2046,7 +2046,7 @@
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>user_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -2055,14 +2055,14 @@
       
         &mdash;
         <div class='inline'>
-<p>user_id</p>
+<p>contains user_id</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>contains</span>
+        <span class='name'>del_id,</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -2071,7 +2071,7 @@
       
         &mdash;
         <div class='inline'>
-<p>del_id</p>
+<p>contains id of user deletion</p>
 </div>
       
     </li>
@@ -2125,7 +2125,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Apr 21 18:16:53 2020 by
+  Generated on Fri Apr 24 13:42:38 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.24 (ruby-2.5.1).
 </div>

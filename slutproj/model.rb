@@ -16,7 +16,7 @@ end
 
 # A function for using "db" in db.execute functions
 # 
-# @param [String] contains email information
+# @param [String] email, contains email information
 # 
 # @return [Hash] containing user_id
 def userexist(email)
@@ -25,10 +25,10 @@ end
 
 # Creates a user from information
 # 
-# @param [String] contains email
-# @param [String] contains hashed password
-# @param [String] contains name
-# @param [String] contains avatar
+# @param [String] email, contains email
+# @param [String] password, contains hashed password
+# @param [String] name, contains name
+# @param [String] avatar, contains avatar
 # 
 # @return [Nil] 
 def createuser(email, password, name, avatar)
@@ -39,8 +39,8 @@ end
 
 # Function for checking if password is correct
 # 
-# @param [String] contains email 
-# @param [String] contains password
+# @param [String] email, contains email 
+# @param [String] password, contains password
 # 
 # @return [Boolean] true or nothing
 def login(email, password)
@@ -54,8 +54,8 @@ end
 
 # Changes avatar for user
 # 
-# @param [String] contains user_id 
-# @param [String] contains route to file 
+# @param [String] user_id, contains id of user 
+# @param [String] slimroute, contains route to file 
 # 
 # @return [Nil]
 def changeavatar(user_id, slimroute)
@@ -64,7 +64,7 @@ end
 
 # Gets all information about user and listings
 # 
-# @param [String] contains user_id 
+# @param [String] user_id, contains id of user 
 # 
 # @return [Array] containing all hashes of information
 def getinfo(user_id)
@@ -91,11 +91,11 @@ end
 
 # Creates a listing
 # 
-# @param [String] contains title
-# @param [String] contains description
-# @param [String] contains imagepath
-# @param [String] contains category
-# @param [String] contains user_id
+# @param [String] title, contains title
+# @param [String] desc, contains description
+# @param [String] bild, contains imagepath
+# @param [String] category, contains category
+# @param [String] user_id, contains user_id
 # 
 # @return [Boolean] if category wrong
 def listcreate(title, desc, bild, category, user_id)
@@ -115,7 +115,7 @@ end
 
 # Uploads a file to the server
 # 
-# @param [String] contains File name 
+# @param [String] filename, contains File name 
 # 
 # @return [Hash] containing file information
 def fileupload(filename)
@@ -140,8 +140,8 @@ end
 
 # Returns user info and listing info
 # 
-# @param [String] contains user_id
-# @param [String] contains list_id
+# @param [String] user_id, contains user_id
+# @param [String] list_id, contains list_id
 # 
 # @return [Array] containing user info and listing info
 def user_info(user_id, list_id)
@@ -150,7 +150,7 @@ end
 
 # Deletes a post
 # 
-# @param [String] contains post_id 
+# @param [String] post_id, contains post_id 
 # 
 # @return [Nil]
 def deletepost(post_id)
@@ -159,11 +159,11 @@ end
 
 # Updates a listing
 # 
-# @param [String] contains post_id 
-# @param [String] contains title
-# @param [String] contains description
-# @param [String] contains category
-# @param [String] contains imagepath
+# @param [String] post_id, contains id of listing 
+# @param [String] title, contains title
+# @param [String] desc, contains description
+# @param [String] category, contains category
+# @param [String] bild, contains imagepath
 # 
 # @return [Bool] if category wrong
 def updatelisting(post_id, title, desc, category, bild)
@@ -188,7 +188,7 @@ end
 
 # Gets profile info from database
 # 
-# @param [String] contains user_id 
+# @param [String] user_id, contains user_id 
 # 
 # @return [Array] containing profile information
 def profileinfo(user_id)
@@ -202,7 +202,7 @@ end
 
 # Gets user and admin information
 # 
-# @param [String] contains user_id 
+# @param [String] user_id, contains user_id 
 # 
 # @return [Array] containing user and admin information
 def admin(user_id)
@@ -211,8 +211,8 @@ end
 
 # Gets information about a user who's about to be deleted 
 # 
-# @param [String] contains user_id
-# @param [String] contains del_id
+# @param [String] user_id, contains user_id
+# @param [String] del_id, contains id of user deletion
 # 
 # @return [Array] containing user info
 def userinfodelete(user_id, del_id)
@@ -221,7 +221,7 @@ end
 
 # Deletes a user from database
 # 
-# @param [String] contains del_id 
+# @param [String] del_id,contains id of user deletion 
 # 
 # @return [Nil]
 def deleteuser(del_id)
