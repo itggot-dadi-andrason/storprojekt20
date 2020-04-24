@@ -93,6 +93,11 @@ end
 # Shows the upload page for avatars
 # 
 get('/upload') do
+    if session[:user_id] == nil
+        session[:error] = "You have to login to upload avatar"
+        session[:route] = "/profile"
+        redirect("/error")
+    end
     slim(:"webshop/upload")
 end
 
@@ -103,6 +108,11 @@ end
 # @see Model#fileupload
 # @see Model#changeavatar
 post('/uploaded') do
+    if session[:user_id] == nil
+        session[:error] = "You have to log in before you can use this feature."
+        session[:route] = "/login"
+        redirect("/error")
+    end
     files = fileupload(params[:file])
     if files == false
         session[:error] = "You used the wrong file extension. Only .png, .jpg and .gif are allowed."
@@ -143,6 +153,11 @@ end
 # 
 # @see Model#showcat
 get('/createlisting') do
+    if session[:user_id] == nil
+        session[:error] = "You have to login to create listing"
+        session[:route] = "/login"
+        redirect("/error")
+    end
     categories = showcat()
     slim(:"webshop/createlisting", locals: {categories:categories})
 end
@@ -155,6 +170,11 @@ end
 # 
 # @see Model#listcreate
 post('/createdlisting') do
+    if session[:user_id] == nil
+        session[:error] = "You have to login before you can use this."
+        session[:route] = "/login"
+        redirect("/error")
+    end
     title = params[:title]
     desc = params[:desc]
     category = params[:categoryselect]
@@ -184,6 +204,11 @@ end
 # @see Model#user_info
 # @see Model#deletepost
 post("/webshop/:list_id/delete") do
+    if session[:user_id] == nil
+        session[:error] = "You have to login before using this."
+        session[:route] = "/login"
+        redirect("/error")
+    end
     post_id = params[:list_id]
     list_user_info = user_info(session[:user_id], post_id)
     if list_user_info[1][0]["user_id"] == session[:user_id] || list_user_info[0][0]["admin"] == "1"
@@ -203,6 +228,7 @@ end
 # @see Model#user_info
 # @see Model#showcat
 get("/webshop/:list_id/update") do
+    
     post_id = params[:list_id]
     list_user_info = user_info(session[:user_id], post_id)
     categories = showcat()
@@ -225,6 +251,11 @@ end
 # 
 # @see Model#updatelisting
 post("/webshop/:list_id/updatedlisting") do
+    if session[:user_id] == nil
+        session[:error] = "You have to login before using this."
+        session[:route] = "/login"
+        redirect("/error")
+    end
     post_id = params[:list_id]
     title = params[:title]
     desc = params[:desc]
@@ -289,6 +320,11 @@ end
 # @see Model#user_info
 # @see Model#deleteuser
 post("/users/:id/deleteuser") do
+    if session[:user_id] == nil
+        session[:error] = "You have to login before using this."
+        session[:route] = "/login"
+        redirect("/error")
+    end
     del_id = params[:id]
     user_info = userinfodelete(session[:user_id], del_id)
     if user_info[1][0]["admin"] == "1"

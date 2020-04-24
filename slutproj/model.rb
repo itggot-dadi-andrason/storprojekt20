@@ -155,6 +155,7 @@ end
 # @return [Nil]
 def deletepost(post_id)
     db.execute("DELETE FROM listings WHERE list_id=?", post_id)
+    db.execute("DELETE FROM listing_cate_rel WHERE listing_id=?", post_id)
 end
 
 # Updates a listing
