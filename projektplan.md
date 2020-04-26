@@ -11,14 +11,14 @@
 │   └───objects\
 ├───db\
 ├───doc\
-│   ├───css
-│   └───js
-├───public
-│   ├───css
-│   ├───img
-│   └───js
-└───views
-    ├───users
-    └───webshop
-app.rb
+│   ├───css\
+│   └───js\
+├───public\
+│   ├───css\
+│   ├───img\
+│   └───js\
+└───views\
+    ├───users\
+    └───webshop\
+app.rb\
 model.rb
