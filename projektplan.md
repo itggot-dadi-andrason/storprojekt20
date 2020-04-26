@@ -1,7 +1,9 @@
 # Projektplan
 
-## 1. Projektbeskrivning (Beskriv vad sidan ska kunna göra)
+## 1. Projektbeskrivning (Beskriv vad sidan ska kunna göra) 
+Tanken
 ## 2. Vyer (visa bildskisser på dina sidor)
+Har inga skisser kvar tyvärr, hade det mesta i huvudet redan så jag visste ungefär hur jag ville göra.
 ## 3. Databas med ER-diagram (Bild)
 
 ![ER-diagram](ER-diagram.png)
