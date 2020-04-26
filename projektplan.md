@@ -10,22 +10,15 @@
 │   .byebug_history\
 │   app.rb\
 │   gemfile\
-│   gemfile.lock\\
+│   gemfile.lock\
 │   model.rb\
 │\
 ├───.yardoc\
-│   │   checksums\
-│   │   complete\
-│   │   object_types\
-│   │   proxy_types\
-│   │
-│   └───objects\
-│           root.dat\
-│
+│\
 ├───db\
 │       database.db\
 │       database.db.sqbpro\
-│
+│\
 ├───doc\
 ├───public\
 │   ├───css\
