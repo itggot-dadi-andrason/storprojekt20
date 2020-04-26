@@ -20,3 +20,5 @@
 └───views
     ├───users
     └───webshop
+app.rb
+model.rb
