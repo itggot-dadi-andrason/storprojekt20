@@ -7,10 +7,10 @@
 ![ER-diagram](er-diagram.PNG)
 
 ## 4. Arkitektur (Beskriv filer och mappar - vad gör/inehåller de?)
-├───.yardoc
-│   └───objects
-├───db
-├───doc
+├───.yardoc\
+│   └───objects\
+├───db\
+├───doc\
 │   ├───css
 │   └───js
 ├───public
