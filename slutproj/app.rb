@@ -8,7 +8,7 @@ require_relative 'model.rb'
 
 include Model
 enable :sessions
-db = SQLite3::Database.new("database.db")
+db = SQLite3::Database.new("db/database.db")
 db.results_as_hash = true
 
 # Display Landing Page

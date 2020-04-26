@@ -2,14 +2,14 @@
 #
 module Model
 
-db = SQLite3::Database.new("database.db")
+db = SQLite3::Database.new("db/database.db")
 db.results_as_hash = true
 
 # A function for using "db" in db.execute functions
 # 
 # @return [String] containing database
 def db() 
-    fat = SQLite3::Database.new("database.db")    
+    fat = SQLite3::Database.new("db/database.db")    
     fat.results_as_hash = true
     return fat
 end
