@@ -11,7 +11,7 @@
 │   └───objects\
 ├───db\
 * database.db\
-** innehåller all information i databasen\
+    * innehåller all information i databasen\
 ├───doc\
 │   ├───css\
 │   └───js\
