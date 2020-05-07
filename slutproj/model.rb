@@ -46,9 +46,8 @@ end
 def login(email, password)
     password_digest = db.execute("SELECT password FROM users WHERE email=?", email)
     if BCrypt::Password.new(password_digest[0][0]) == password
-        session[:email] = email
-        session[:user_id] = db.execute("SELECT user_id FROM users WHERE email=?", email)[0][0]
-        return true
+        user_id = db.execute("SELECT user_id FROM users WHERE email=?", email)[0][0]
+        return [true, email, user_id]
     end
 end
 
@@ -230,5 +229,35 @@ def deleteuser(del_id)
     db.execute("DELETE FROM listings WHERE user_id=?", del_id)
 end
 
+# Adds a login attempt to a counter and starts a timer if the counter exceeds a number
+#
+def add_attempt()
+    session[:attempt] += 1
+    p "login attemps = #{session[:attempt]}"
+    if session[:attempt] >= 5
+        session[:start_time] = Time.new.to_i
+        p "start time = #{session[:start_time]}"
+        session[:timeout] = true
+        session[:attempt] = 0
+    end
+end
+
+
+# Updates the timeout status and time left of the timeout
+#
+def update_timeout_status()
+    if session[:timeout]
+        current_time = Time.new.to_i
+        p "current time = #{current_time}"
+        diff = current_time - session[:start_time]
+        p "curr - start = #{diff}"
+        time_out_length = 300
+        if diff >= time_out_length
+            session[:timeout] = false
+        else
+            session[:time_left] = time_out_length - diff
+        end
+    end
+end
 
 end

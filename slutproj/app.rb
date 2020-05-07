@@ -3,24 +3,23 @@ require 'sinatra'
 require 'sqlite3'
 require 'bcrypt'
 require 'byebug'
-require 'capybara'
 require_relative 'model.rb'
 
 include Model
 enable :sessions
-db = SQLite3::Database.new("db/database.db")
-db.results_as_hash = true
+
 
 # Display Landing Page
 # 
 get('/') do
+    session[:attempt] = 0
     slim(:index)
 end
 
 # Displays Register Page
 # 
 get('/register') do
-    slim(:"users/register")
+    slim(:"users/new")
 end
 
 # Creates a new account and redirects to '/login'
@@ -81,9 +80,18 @@ post('/loginacc') do
         redirect('/error')
     end
     val = login(email, password)
-    if val
+    update_timeout_status()
+    if session[:timeout]
+        session[:error] = "You have attempted to login too many times. Try again in #{session[:time_left]} seconds"
+        session[:route] = "/login"
+        redirect("/error")
+    end
+    if val[0]
+        session[:email] = val[1]
+        session[:user_id] = val[2]
         redirect('/webshop')
     else
+        add_attempt()
         session[:error] = "The password/email is wrong."
         session[:route] = "/login"
         redirect('/error')
@@ -98,7 +106,7 @@ get('/upload') do
         session[:route] = "/profile"
         redirect("/error")
     end
-    slim(:"webshop/upload")
+    slim(:"webshop/uploadavatar")
 end
 
 # Uploads the file and replaces avatar for user and redirects to '/profile'
@@ -141,7 +149,7 @@ end
 get('/webshop') do
     info = getinfo(session[:user_id])
     if session[:user_id] != nil
-        slim(:"webshop/webshop", locals: {allinfo: info[0], listings: info[1], categories: info[2], relationtable: info[3], catarr: info[4]})
+        slim(:"webshop/index", locals: {allinfo: info[0], listings: info[1], categories: info[2], relationtable: info[3], catarr: info[4]})
     else
         session[:error] = "You have to login to see this site"
         session[:route] = "/login"
@@ -159,7 +167,7 @@ get('/createlisting') do
         redirect("/error")
     end
     categories = showcat()
-    slim(:"webshop/createlisting", locals: {categories:categories})
+    slim(:"webshop/new", locals: {categories:categories})
 end
 
 # Creates a new listing and redirects to '/webshop'
@@ -233,7 +241,7 @@ get("/webshop/:list_id/update") do
     list_user_info = user_info(session[:user_id], post_id)
     categories = showcat()
     if list_user_info[1][0]["user_id"] == session[:user_id]
-        slim(:"webshop/update", locals: {list_info: list_user_info[1][0], post_id: post_id, categories: categories})
+        slim(:"webshop/edit", locals: {list_info: list_user_info[1][0], post_id: post_id, categories: categories})
     else
         session[:error] = "You are not the owner of this post."
         session[:route] = "/webshop"
@@ -285,7 +293,7 @@ end
 get("/profile") do
     if session[:user_id] != nil
         profileinfo = profileinfo(session[:user_id])
-        slim(:"users/profile", locals: {profileinfo: profileinfo})
+        slim(:"users/show", locals: {profileinfo: profileinfo})
     else
         session[:error] = "You need to be logged in to see your profile!"
         session[:route] = "/login"
