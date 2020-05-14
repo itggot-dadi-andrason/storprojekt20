@@ -79,19 +79,28 @@ post('/loginacc') do
         session[:route] = "/login"
         redirect('/error')
     end
-    val = login(email, password)
-    update_timeout_status()
+    status = update_timeout_status(session[:timeout], session[:start_time], session[:time_left])
+    check = status.is_a? Integer
+    if check
+        session[:time_left] = status
+    else
+        session[:timeout] = status
+    end
     if session[:timeout]
         session[:error] = "You have attempted to login too many times. Try again in #{session[:time_left]} seconds"
         session[:route] = "/login"
         redirect("/error")
     end
+    val = login(email, password)
     if val[0]
         session[:email] = val[1]
         session[:user_id] = val[2]
         redirect('/webshop')
     else
-        add_attempt()
+        session[:start_time] = Time.new.to_i
+        atts_time = add_attempt(session[:attempt], session[:start_time])
+        session[:timeout] = atts_time[0]
+        session[:attempt] = atts_time[1]
         session[:error] = "The password/email is wrong."
         session[:route] = "/login"
         redirect('/error')

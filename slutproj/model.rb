@@ -48,6 +48,8 @@ def login(email, password)
     if BCrypt::Password.new(password_digest[0][0]) == password
         user_id = db.execute("SELECT user_id FROM users WHERE email=?", email)[0][0]
         return [true, email, user_id]
+    else
+        return [false]
     end
 end
 
@@ -231,31 +233,34 @@ end
 
 # Adds a login attempt to a counter and starts a timer if the counter exceeds a number
 #
-def add_attempt()
-    session[:attempt] += 1
-    p "login attemps = #{session[:attempt]}"
-    if session[:attempt] >= 5
-        session[:start_time] = Time.new.to_i
-        p "start time = #{session[:start_time]}"
-        session[:timeout] = true
-        session[:attempt] = 0
+def add_attempt(attempt, start_time)
+    attempt+= 1
+    p "login attemps = #{attempt}"
+    if attempt >= 5
+        p "start time = #{start_time}"
+        timeout = true
+        attempt = 0
+        return [timeout, attempt]
     end
+    return[false, attempt]
 end
 
 
 # Updates the timeout status and time left of the timeout
 #
-def update_timeout_status()
-    if session[:timeout]
+def update_timeout_status(timeout, start_time, time_left)
+    if timeout
         current_time = Time.new.to_i
         p "current time = #{current_time}"
-        diff = current_time - session[:start_time]
+        diff = current_time - start_time
         p "curr - start = #{diff}"
         time_out_length = 300
         if diff >= time_out_length
-            session[:timeout] = false
+            timeout = false
+            return timeout
         else
-            session[:time_left] = time_out_length - diff
+            time_left = time_out_length - diff
+            return time_left
         end
     end
 end
